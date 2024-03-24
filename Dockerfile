@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+WORKDIR /usr/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+RUN apk -U add tzdata
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+EXPOSE 3090
+
+CMD [ "npm", "run", "start:prod" ]
