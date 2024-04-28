@@ -22,4 +22,8 @@ export class AppService {
     console.log(process.env.DATA_BASE)
     return this.configService.get<string>('TEST_VARIABLE');
   }
+
+  getTest(doc: string, key: string): any{
+    return {doc, key}
+  }
 }
